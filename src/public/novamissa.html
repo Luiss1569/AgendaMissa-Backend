@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/styles/style.css"
+      media="screen"
+    />
+    <title>Agenda Missa</title>
+  </head>
+  <body class="mycontainer">
+    <div class="header"></div>
+    <br />
+    <img src="assets/paroquia-sbs-logo.png" />
+    <br />
+    <div class="form">
+      <div id="missa"></div>
+      <br />
+      <div id="status"></div>
+      <div class="form-group">
+        <label for="exampleInputEmail1">Dia e mês</label>
+        <input
+          type="nome"
+          class="form-control"
+          id="dia"
+          aria-describedby="emailHelp"
+          placeholder="26/6"
+        />
+        <small id="sss" class="form-text text-muted"
+          >Insira o dia como 27/7</small
+        ><br/>
+        <label for="exampleInputEmail1">Dia da Semana</label>
+        <input
+          type="nome"
+          class="form-control"
+          id="semana"
+          aria-describedby="emailHelp"
+          placeholder="Dom"
+        />
+        <small id="sss" class="form-text text-muted"
+        >Insira como Dom, Seg, Ter, Qua, Qui, Sex, Sab</small
+        >
+        <br/>
+        <label for="exampleInputEmail1">Horaio</label>
+        <input
+          type="nome"
+          class="form-control"
+          id="horas"
+          aria-describedby="emailHelp"
+          placeholder="22h"
+        />
+        <small id="sss" class="form-text text-muted"
+        >Insira no formato 24 ex: 23h, 10h</small
+        >
+      </div>
+    </div>
+    <br />
+    <button class="botao btn btn-success" id="botao">Criar</button><br />
+    <br />
+
+    <a href="/painel.html" class="btn btn-outline-primary">Voltar</a>
+    <br/>
+    <div id='pessoa'></div><br/>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+      let missaId;
+      const button = document.querySelector("#botao");
+      button.onclick = () => {
+        const dia = document.querySelector("#dia").value;
+        document.querySelector("#dia").value = "";
+
+        const semana = document.querySelector("#semana").value;
+        document.querySelector("#semana").value = "";
+
+        const horas = document.querySelector("#horas").value;
+        document.querySelector("#horas").value = "";
+
+        async function api() {
+          const response = await axios.post(
+            "/missa",
+            { dia, semana, horas }
+          );
+          const { error, sucess } = response.data;
+          const msg = document.querySelector("#status");
+          if (error) {
+            msg.innerHTML = `<div class="alert alert-danger" role="alert">${error}</div>`;
+          } else {
+            msg.innerHTML = `<div class="alert alert-success" role="alert">${sucess}</div>`;
+            setTimeout(() => (window.location.href = "/"), 5000);
+          }
+        }
+        api();
+      };
+
+      async function init() {
+        function queryString(parameter) {
+          var loc = location.search.substring(1, location.search.length);
+          var param_value = false;
+          var params = loc.split("&");
+          for (let i = 0; i < params.length; i++) {
+            var param_name = params[i].substring(0, params[i].indexOf("="));
+            if (param_name == parameter) {
+              param_value = params[i].substring(params[i].indexOf("=") + 1);
+            }
+          }
+          if (param_value) {
+            return param_value;
+          } else {
+            return undefined;
+          }
+        }
+
+        missaId = queryString("id");
+        const response = await axios.get("/missa", {
+          headers: { missa: missaId },
+        });
+      }
+      init();
+    </script>
+  </body>
+</html>

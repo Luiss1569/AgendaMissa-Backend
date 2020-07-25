@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/styles/style.css"
+      media="screen"
+    />
+    <title>Agenda Missa</title>
+  </head>
+  <body class="mycontainer">
+    <div class="header"></div>
+    <br />
+    <img src="assets/paroquia-sbs-logo.png" />
+    <br />
+    <div class="form">
+      <div id="missa"></div>
+      <br />
+      <div id="status"></div>
+      <div class="form-group">
+        <label for="exampleInputEmail1">Usuario</label>
+        <input
+          type="nome"
+          class="form-control"
+          id="user"
+          aria-describedby="emailHelp"
+          placeholder="Seu Nome"
+        />
+      </div>
+      <div class="form-group">
+        <label for="exampleInputEmail1">Senha</label>
+        <input
+          type="password"
+          class="form-control"
+          id="senha"
+          aria-describedby="emailHelp"
+          placeholder="Seu Nome"
+        />
+      </div>
+    </div>
+    <br />
+    <button class="botao btn btn-success" id="botao">Entrar</button><br />
+    <br />
+
+    <a href="/" class="btn btn-outline-primary">Voltar</a>
+    <br/><br/><br/><br/><br/><br/>
+    <div id='pessoa'></div><br/>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+      let missaId;
+      const button = document.querySelector("#botao");
+      button.onclick = () => {
+        const user = document.querySelector("#user").value;
+        document.querySelector("#user").value = "";
+
+        const senha = document.querySelector("#senha").value;
+        document.querySelector("#senha").value = "";
+        console.log(user,senha);
+        async function api() {
+          const response = await axios.post(
+            "/login",
+            { user,senha }
+          );
+          const { error, sucess } = response.data;
+          const msg = document.querySelector("#status");
+          if (error) {
+            msg.innerHTML = `<div class="alert alert-danger" role="alert">${error}</div>`;
+          } else {
+            msg.innerHTML = `<div class="alert alert-success" role="alert">${sucess}</div>`;
+            setTimeout(() => (window.location.href = "/painel.html"), 1000);
+          }
+        }
+        api();
+      };
+    </script>
+  </body>
+</html>

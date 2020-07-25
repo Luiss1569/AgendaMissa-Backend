@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/styles/style.css"
+      media="screen"
+    />
+    <title>Agenda Missa</title>
+  </head>
+  <body class="mycontainer">
+    <div class="header"></div>
+    <br />
+    <img src="assets/paroquia-sbs-logo.png" />
+    <h1>Painel de Missas</h1>
+
+    <a href="/novamissa.html" class="btn btn-light">Criar Missa</a>
+    <div id="select"></div>
+    <a href="/" class="btn btn-outline-primary">Voltar</a>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+
+      async function init() {
+        const select = document.querySelector("#select");
+        const http = "http://localhost:3333";
+
+        const response = await axios.get("/missas");
+        const missas = response.data;
+        console.log(missas);
+
+        let tabela =
+          '<table class="table table-striped table-bordered"><tr><th scope="col">#</th><th scope="col">Missa</th> <th scope= "col">Pessoas</th></tr>';
+
+        missas.map((missa, index) => {
+          tabela += `<tr onClick="window.location.href='/pessoas.html?id=${missa._id}'">`;
+          tabela += `<td>${index + 1}</td>, <td>${missa.semana}, ${
+            missa.dia
+          }, ${missa.horas}</td>`;
+          tabela += `<td>${missa.numero}</td>`;
+          tabela += "</tr>";
+        });
+        tabela += "</table>";
+
+        select.innerHTML = tabela;
+      }
+
+      init();
+    </script>
+  </body>
+</html>
