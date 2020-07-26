@@ -37,7 +37,7 @@
         const response = await axios.get("/missas");
         const missas = response.data;
 
-        let tabela ='<br/><table class="table table-striped table-bordered"><tr><th scope="col">Missa</th><th scope="col">Nº Pessoas</th></tr>'
+        let tabela ='<br/><table class="table table-striped table-bordered table-hover"><tr><th scope="col">Missa</th><th scope="col">Nº Pessoas</th></tr>'
         missas.map((missa, index) => {
           tabela += `<tr onClick="window.location.href='/adicionar.html?id=${missa._id}'">`;
           tabela += `<td>${missa.semana}, ${missa.dia}, ${missa.horas}</td>`;
