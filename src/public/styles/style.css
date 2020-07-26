@@ -24,6 +24,10 @@
     width: 90%;
 }
 
+table{
+    cursor: pointer;
+}
+
 .botao{
     background-color: #7B2E00;
 }
