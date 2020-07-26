@@ -23,7 +23,7 @@
     <img src="assets/paroquia-sbs-logo.png" />
     <br />
     <div class="form">
-      <div id="missa"></div>
+      <div id="missa"><h1 style="display: flex; justify-content: center;">Login</h1></div>
       <br />
       <div id="status"></div>
       <div class="form-group">
@@ -46,9 +46,9 @@
           placeholder="Senha"
         />
       </div>
+      <button class="botao btn btn-success" id="botao">Entrar</button><br />
     </div>
     <br />
-    <button class="botao btn btn-success" id="botao">Entrar</button><br />
     <br />
 
     <a href="/" class="btn btn-outline-primary">Voltar</a>
@@ -59,6 +59,10 @@
     <script>
       let missaId;
       const button = document.querySelector("#botao");
+      document.addEventListener('keydown', e =>{
+        if(e.key == 'Enter'){
+          button.onclick()
+        }})
       button.onclick = () => {
         const user = document.querySelector("#user").value;
         document.querySelector("#user").value = "";

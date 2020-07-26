@@ -1,41 +1,60 @@
-.mycontainer{
-    display: flex;
-    flex: 1;
-    align-items: center;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    flex-direction: column;
+.mycontainer {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  flex-direction: column;
 }
 
-.mycontainer .header{
-    width: 101.2%;
-    color: aliceblue;
-    background-color: #7B2E00;
-    height: 36px;
-    font-size: 14px;
-    margin-top: -8px;
+.mycontainer .header {
+  width: 100%;
+  color: aliceblue;
+  background-color: #7b2e00;
+  height: 36px;
+  font-size: 14px;
+  margin-top: -8px;
 }
 
-.mycontainer img{
-    margin-top: -13px;
+.mycontainer img {
+  margin-top: -13px;
 }
 
-.mycontainer #select{
-    text-align: center;
+.mycontainer #select {
+  text-align: center;
+  width: 90%;
+}
+
+table {
+  cursor: pointer;
+}
+
+.botao {
+  background-color: #7b2d00e8;
+  width: 100%;
+  margin-top: 7%;
+}
+
+.form {
+  background-color: #7b2d0034;
+  padding: 20px;
+  border: 2px solid black;
+  border-radius: 10px;
+}
+
+#nome {
+  text-transform: capitalize;
+}
+
+#imprimir{
     width: 90%;
 }
 
-table{
-    cursor: pointer;
+#user {
+  text-transform: lowercase;
 }
 
-.botao{
-    background-color: #7B2E00;
-}
-
-#nome{
-    text-transform: capitalize;
-}
-
-#user{
-    text-transform: lowercase;
+.botaos {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

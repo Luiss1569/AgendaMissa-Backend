@@ -15,22 +15,45 @@
       href="/styles/style.css"
       media="screen"
     />
+    <style>
+      @media print {
+        .noprint, #imprimir {
+          display: none;
+        }
+        .page-break {
+          page-break-before: left;
+        }
+        .table {
+          font-size: 36px;
+        }
+        h3{
+          font-size: 42px;
+        }
+      }
+    </style>
     <title>Agenda Missa</title>
   </head>
   <body class="mycontainer">
     <div class="header"></div>
     <br />
-    <img src="assets/paroquia-sbs-logo.png" />
+    <img src="assets/paroquia-sbs-logo.png" class="noprint" />
     <br />
-    <div class="form">
+    <div class="printable">
       <div id="missa"></div>
+      <button type="button" id="imprimir" class="btn btn-outline-dark">
+        Imprimir
+      </button>
       <br />
       <div id="select"></div>
     </div>
     <br />
-    <div id="apagar"></div>
-    <br />
-    <a href="/painel.html" class="btn btn-outline-primary">Voltar</a><br />
+
+    <div class="botaos noprint">
+      <br />
+      <div id="apagar"></div>
+      <br />
+      <a href="/painel.html" class="btn btn-outline-primary">Voltar</a><br />
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
@@ -60,10 +83,10 @@
         const select = document.querySelector("#select");
 
         let tabela =
-          '<table class="table table-striped table-bordered"><tr><th scope="col">#</th><th scope="col">Nomes</th>';
+          '<br/><table class="table table-striped table-bordered"><tr><th scope="col">#</th><th scope="col">Nomes</th>';
         missa.pessoas.map((pessoa, index) => {
-          tabela += `<tr>`;
-          tabela += `<td>${index}</td>`;
+          tabela += `<tr class="page-break">`;
+          tabela += `<td>${index + 1}</td>`;
           tabela += `<td>${pessoa}</td>`;
           tabela += "</tr>";
         });
@@ -71,7 +94,7 @@
 
         select.innerHTML = tabela;
         const missaElem = document.querySelector("#missa");
-        missaElem.innerHTML = `<h3>Missa de ${missa.semana} ${missa.dia} ${missa.horas}</h3>`;
+        missaElem.innerHTML = `<h3 class="title">Missa de ${missa.semana} ,${missa.dia} ,${missa.horas}</h3>`;
 
         document.querySelector(
           "#apagar"
@@ -80,10 +103,14 @@
           let a = confirm("Dejesa mesmo apagar?");
           if (a) {
             const response = await axios.delete("/missa", {
-                headers: { missa: missaId },
-        });
-            window.location.href = "/painel.html"
+              headers: { missa: missaId },
+            });
+            window.location.href = "/painel.html";
           }
+        };
+        document.querySelector("#imprimir").onclick = () => {
+          alert("Não esqueça de 4 paginas em uma folha");
+          window.print();
         };
       }
       init();

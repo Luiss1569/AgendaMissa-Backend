@@ -39,9 +39,9 @@
           >Insira o nome completo</small
         >
       </div>
+      <button class="botao btn btn-success" id="botao">Participar</button><br />
     </div>
     <br />
-    <button class="botao btn btn-success" id="botao">Participar</button><br />
     <br />
 
     <a href="/" class="btn btn-outline-primary">Voltar</a>
@@ -52,6 +52,10 @@
     <script>
       let missaId;
       const button = document.querySelector("#botao");
+      document.addEventListener('keydown', e =>{
+        if(e.key == 'Enter'){
+          button.onclick()
+        }})
       button.onclick = () => {
         const pessoa = document.querySelector("#nome").value;
         document.querySelector("#nome").value = "";
@@ -70,12 +74,10 @@
             msg.innerHTML = `<div class="alert alert-danger" role="alert">${error}</div>`;
           } else {
             msg.innerHTML = `<div class="alert alert-success" role="alert">${sucess}</div>`;
-            setTimeout(() => (window.location.href = "/"), 5000);
           }
         }
         api();
-      };
-
+      }
       async function init() {
         function queryString(parameter) {
           var loc = location.search.substring(1, location.search.length);
@@ -93,7 +95,6 @@
             return undefined;
           }
         }
-
         missaId = queryString("id");
         const response = await axios.get("/missa", {
           headers: { missa: missaId },
