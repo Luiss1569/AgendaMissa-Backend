@@ -39,7 +39,7 @@
         console.log(missas);
 
         let tabela =
-          '<br/><table class="table table-striped table-bordered"><tr><th scope="col">#</th><th scope="col">Missa</th> <th scope= "col">Pessoas</th></tr>';
+          '<br/><table class="table table-striped table-bordered table-hover"><tr><th scope="col">#</th><th scope="col">Missa</th> <th scope= "col">Pessoas</th></tr>';
 
         missas.map((missa, index) => {
           tabela += `<tr onClick="window.location.href='/pessoas.html?id=${missa._id}'">`;
