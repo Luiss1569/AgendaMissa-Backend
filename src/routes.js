@@ -15,7 +15,7 @@ router.delete('/missa', missa.delete)
 router.post('/login', (req, res)=>{
     const { user, senha } = req.body
 
-    if(user == "saobento" && senha == "paroquiasbs"){
+    if(user == "saobento" || user =="Saobento" && senha == "paroquiasbs"){
         return res.json({ sucess: 'Redirecionando' })
     }else{
         return res.json({ error: 'Dados incorretos!' })
