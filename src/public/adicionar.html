@@ -98,6 +98,9 @@
         const response = await axios.get("/missa", {
           headers: { missa: missaId },
         });
+        const _missa = response.data 
+        const missaElem = document.querySelector("#missa");
+        missaElem.innerHTML = `<h3>Missa de ${_missa.semana} ${_missa.dia} ${_missa.horas}</h3>`;
       }
       init();
     </script>
