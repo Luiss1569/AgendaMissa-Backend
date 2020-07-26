@@ -27,3 +27,11 @@
 .botao{
     background-color: #7B2E00;
 }
+
+#nome{
+    text-transform: capitalize;
+}
+
+#user{
+    text-transform: lowercase;
+}
